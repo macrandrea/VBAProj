@@ -1,0 +1,91 @@
+Sub progetto1()
+Const y = 306
+ Dim v_i(1 To y) As Integer, v_g(1 To y) As String, v_o(1 To y) As Integer, v_costo(1 To y) As Double, v_costo_totale(1 To y) As Double
+ Dim v_int(1 To y) As Integer, v_ope(1 To y) As Double
+ For i = 1 To y
+   v_g(i) = Cells(i + 1, 3)
+   v_i(i) = Cells(i + 1, 4)
+    If v_i(i) <= "18" Then
+     Cells(i + 1, 5) = "1"
+    ElseIf v_i(i) > "18" Then
+     Cells(i + 1, 5) = "2"
+    End If
+    If v_g(i) = "Domenica" Or v_i(i) = "0" Then
+     Cells(i + 1, 5) = "0" And Cells(i + 1, 6) = "0" 'vecchio metodo in pastebin
+    End If
+  Next i
+  For i = 1 To y
+   If v_i(i) > "36" Then
+     Cells(i + 1, 5) = "IMPOSSIBILE"
+     Cells(i + 1, 5).Interior.Color = RGB(225, 0, 0)
+     Cells(i + 1, 6).Interior.Color = RGB(225, 0, 0)
+     Cells(i + 1, 8).Interior.Color = RGB(225, 0, 0)
+     Cells(i + 1, 4).Interior.Color = RGB(225, 0, 0)
+   End If
+  Next i
+   For i = 1 To y 'ore
+    v_int(i) = Cells(i + 1, 4)
+    v_ope(i) = v_int(i) * 0.5
+    Cells(i + 1, 6) = v_ope(i)
+    If Cells(i + 1, 3) = "Sabato" Then
+     Cells(i + 1, 6) = "6"
+    ElseIf Cells(i + 1, 3) = "Domenica" Or v_i(i) > "36" Then
+     Cells(i + 1, 6) = "0"
+    'vecchio metodo in pastebin
+    End If
+  Next i
+  totale_max = 0
+  For i = 1 To y
+   v_o(i) = Cells(i + 1, 6)
+   v_costo(i) = Cells(i + 1, 7)
+   v_costo_totale(i) = v_o(i) * v_costo(i)
+   Cells(i + 1, 8) = v_costo_totale(i)
+   totale_max = totale_max + v_costo_totale(i)
+  Next i
+  Cells(2, 10) = totale_max
+  n = 0
+  m = 0
+  For i = 1 To y
+   If v_i(i) <> "0" Then
+    n = n + 1
+   ElseIf v_i(i) = "0" Then
+    m = m + 1
+   End If
+  Next i
+  Cells(3, 10) = n
+  Cells(4, 10) = m
+End Sub
+Sub pastebin()
+'Dim v_int(1 To 365) As Integer, v_ope(1 To 365) As Double
+'For i = 1 To 306
+'v_int(i) = Cells(i + 1, 4)
+'v_ope(i) = v_int(i) * 0.5
+'Cells(i + 1, 11) = v_ope(i)
+'Next i
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+'ElseIf Cells(i + 1, 5) = "1" Then
+     'Cells(i + 1, 6) = "9"
+    'ElseIf Cells(i + 1, 5) = 2 Then
+     'Cells(i + 1, 6) = "
+     ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    
+    'ElseIf v_i(i) = "0" Then
+     'Cells(i + 1, 6) = "0"
+    'End If
+  'Next i
+End Sub
+Sub colori()
+    Cells(3, 1).Interior.Color = RGB(255, 0, 0)
+    'Cells(1, 1).fore.Color = RGB(0, 255, 0)
+End Sub
+Sub modified()
+Dim max_value As Double, v_alore(1 To 5) As Double
+max_value = 0
+For i = 1 To 5
+v_alore(i) = Cells(i, 12)
+ If v_alore(i) > max_value Then
+  max_value = v_alore(i)
+ End If
+Next i
+Cells(1, 13) = max_value
+End Sub
